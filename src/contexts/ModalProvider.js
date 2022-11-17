@@ -6,7 +6,7 @@ const useModalWindow = () => {
   const modalContext = useContext(ModalContext);
 
   if (!modalContext) {
-    throw new Error("useModalWindow must be used inside the ModalProvider");
+    throw new Error("Error! useModalWindow must be used inside the ModalProvider");
   }
 
   return modalContext;
