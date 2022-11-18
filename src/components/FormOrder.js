@@ -60,9 +60,11 @@ function FormOrder({ textMessage }) {
           .post(
             `/api/order`,
             {
-              firstName: values.firstName,
-              comment: values.comment,
-              phone: values.phone,
+              data: {
+                firstName: values.firstName,
+                comment: values.comment,
+                phone: values.phone,
+              },
             },
             {
               headers: {
