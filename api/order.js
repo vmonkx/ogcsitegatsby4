@@ -1,11 +1,11 @@
-import axios from "axios";
+const { default: axios } = require("axios");
 
-export default async function (req, res) {
+module.exports = async function (req, res) {
   await axios
     .post(`${process.env.API_URL}/api/orders`, req.body, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `bearer ${process.env.API_TOKEN}`
+        Authorization: `bearer ${process.env.API_TOKEN}`,
       },
     })
     .then((response) => {
@@ -20,4 +20,4 @@ export default async function (req, res) {
       }
     })
     .catch((err) => console.log("err", err));
-}
+};
