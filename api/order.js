@@ -5,7 +5,7 @@ module.exports = async function (req, res) {
     .post(`${process.env.API_URL}/api/orders`, req.body, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `bearer ${process.env.API_TOKEN}`,
+        "Authorization": `bearer ${process.env.API_TOKEN}`,
       },
     })
     .then((response) => {
