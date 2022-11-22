@@ -87,7 +87,7 @@ function Navbar({ openModalSearch, setOpenModalSearch }) {
               </OutboundLink>
             </li>
           </NavListStyled>
-          <NavButtonStyled onClick={handleSearch}>
+          <NavButtonStyled onClick={handleSearch} aria-label="Поиск процедуры">
             <FaSearch className={isOpen && "icon-search"} />
           </NavButtonStyled>
           <NavToggleButton

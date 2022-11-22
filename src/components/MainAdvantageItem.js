@@ -174,7 +174,7 @@ const renderers = {
         whileInView="visible"
         variants={animationHomeVariant}
       >
-        <img src={QuoteImg} />
+        <img src={QuoteImg} alt="цитата" />
         {value.children}
       </TextQuote>
     );

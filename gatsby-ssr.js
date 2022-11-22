@@ -12,8 +12,9 @@ const { ThemeProvider } = require("styled-components");
 const { ModalProvider } = require("./src/contexts/ModalProvider");
 const { GlobalStyle } = require("./src/components/Styled/GlobalStyled");
 
-exports.onRenderBody = ({ setPostBodyComponents }) => {
+exports.onRenderBody = ({ setPostBodyComponents, setHtmlAttributes }) => {
   setPostBodyComponents([<div key={"portal"} id={"portal"}></div>]);
+  setHtmlAttributes({ lang: "ru" });
 };
 
 exports.wrapPageElement = ({ element, props }) => {
