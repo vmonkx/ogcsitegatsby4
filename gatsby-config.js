@@ -283,7 +283,13 @@ module.exports = {
           }),
       },
     },
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: "/",
+        excludes: [`${process.env.SITE_URL}/test/`],
+      },
+    },
     {
       resolve: `gatsby-plugin-offline`,
       options: {
@@ -337,7 +343,7 @@ module.exports = {
       resolve: "gatsby-plugin-robots-txt",
       options: {
         host: process.env.SITE_URL,
-        sitemap: `${process.env.SITE_URL}/sitemap.xml`,
+        sitemap: `${process.env.SITE_URL}/sitemap-index.xml`,
         policy: [{ userAgent: "*", allow: "/" }],
       },
     },

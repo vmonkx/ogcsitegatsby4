@@ -4,7 +4,6 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper";
 import "swiper/css/pagination";
-import { FaHeart } from "@react-icons/all-files/fa/FaHeart";
 
 const InstagramListContainer = styled.div`
   padding-bottom: 50px;
@@ -135,7 +134,6 @@ function InstagramList({ posts }) {
         }}
       >
         {posts.map((post) => {
-          console.log("caption", typeof post.node.caption);
           return (
             post.node.localFile && (
               <SwiperSlide key={post.node.id}>
@@ -155,12 +153,7 @@ function InstagramList({ posts }) {
                         120
                       )}`}
                     />
-                    <InstPostContent>
-                      {/* <InstPostInfo>
-                        <FaHeart />
-                        <span>&nbsp;{post.node.likes}</span>
-                      </InstPostInfo> */}
-                    </InstPostContent>
+                    
                   </InstPostLink>
                 </InstagramPostWrapper>
               </SwiperSlide>

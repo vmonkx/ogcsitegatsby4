@@ -11,14 +11,18 @@ import FeaturedPromo from "../components/FeaturedPromo";
 import Seo from "../components/Seo";
 
 import VideoHero from "../components/VideoHero";
+import { getSrc } from "gatsby-plugin-image";
 /* import LazyComponent from "../components/LazyComponent"; */
 
 const IndexPage = ({ data: { strapiMainPage } }) => {
-  const { MainAdvantage, videoHero } = strapiMainPage;
+  const { MainAdvantage, videoHero, hero } = strapiMainPage;
 
   return (
     <Layout>
-      <VideoHero videoSrc={videoHero.localFile.publicURL} />
+      <VideoHero
+        poster={getSrc(hero.cover.localFile)}
+        videoSrc={videoHero.localFile.publicURL}
+      />
       <MainAdvantages advantages={MainAdvantage} />
       <FeaturedServices />
       <FeaturedPromo />

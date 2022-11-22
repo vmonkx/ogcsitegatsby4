@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-
-
-
 const MainPageTitle = styled.div`
   display: flex;
   flex-direction: column;
@@ -61,9 +58,7 @@ const MainPageTitle = styled.div`
   }
 `;
 
-
-
-function BackgroundHero({ videoSrc, title, info }) {
+function BackgroundHero({ videoSrc, title, info, poster }) {
   return (
     <>
       <MainPageTitle>
@@ -82,7 +77,7 @@ function BackgroundHero({ videoSrc, title, info }) {
                 loop
                 autoPlay
                 playsInline
-                poster="https://alexglushko.ru/upload/als-property-editorblock/6fe/6fe4e060681423c06f173d1cf5c076da.jpg"
+                poster={poster}
                 height="1080"
                 width="1920"
               >

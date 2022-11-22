@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Link, useStaticQuery } from "gatsby";
 import CategoryList from "./CategoryList";
 import CategoryItem from "./CategoryItem";
-import { ButtonPrimary } from "./Styled/Button";
+import { ButtonSecondary } from "./Styled/Button";
 import { WrapperActionSection } from "./Styled/WrapperActionSection";
 import { HeaderSectionStyled } from "./Styled/HeaderStyled";
 
@@ -48,7 +48,7 @@ function FeaturedServices() {
           <WrapperActionSection>
             <div className="button-container">
               <Link to="/services" title="Все процедуры">
-                <ButtonPrimary>Все процедуры</ButtonPrimary>
+                <ButtonSecondary>Все процедуры</ButtonSecondary>
               </Link>
             </div>
           </WrapperActionSection>

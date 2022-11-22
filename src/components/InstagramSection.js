@@ -3,7 +3,7 @@ import React from "react";
 import Container from "./Container";
 
 import InstagramList from "./InstagramList";
-import { ButtonPrimary } from "./Styled/Button";
+import { ButtonSecondary } from "./Styled/Button";
 import { HeaderSectionStyled } from "./Styled/HeaderStyled";
 import { Section } from "./Styled/Section";
 import { WrapperActionSection } from "./Styled/WrapperActionSection";
@@ -24,7 +24,7 @@ function InstagramSection() {
               rel="noopener noreferrer"
               title="Подписаться"
             >
-              <ButtonPrimary>Подписаться</ButtonPrimary>
+              <ButtonSecondary>Подписаться</ButtonSecondary>
             </a>
           </div>
         </WrapperActionSection>

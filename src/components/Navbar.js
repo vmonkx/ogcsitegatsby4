@@ -15,6 +15,7 @@ import {
 import { FaPhoneAlt } from "@react-icons/all-files/fa/FaPhoneAlt";
 import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
 import { OutboundLink } from "gatsby-plugin-google-gtag";
+import HightLightButton from "./HightLightButton";
 
 function Navbar({ openModalSearch, setOpenModalSearch }) {
   const [isOpen, setNav] = useState();
@@ -103,13 +104,13 @@ function Navbar({ openModalSearch, setOpenModalSearch }) {
             <div aria-hidden="true" className="bar"></div>
           </NavToggleButton>
           <div>
-            <ButtonPrimary
+            <HightLightButton
               onClick={toggle}
               aria-label="Записаться"
               id="add_to_order"
             >
               Записаться
-            </ButtonPrimary>
+            </HightLightButton>
           </div>
         </div>
       </Container>

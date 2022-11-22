@@ -6,7 +6,7 @@ import { Section } from "./Styled/Section";
 
 import { Link, useStaticQuery } from "gatsby";
 
-import { ButtonPrimary } from "./Styled/Button";
+import { ButtonSecondary } from "./Styled/Button";
 import { WrapperActionSection } from "./Styled/WrapperActionSection";
 import PromoSliderList from "./PromoSliderList";
 import { HeaderSectionStyled } from "./Styled/HeaderStyled";
@@ -25,7 +25,7 @@ function FeaturedPromo() {
         <WrapperActionSection>
           <div className="button-container">
             <Link to="/promo" title="Посмотреть все акции">
-              <ButtonPrimary>Посмотреть все акции</ButtonPrimary>
+              <ButtonSecondary>Посмотреть все акции</ButtonSecondary>
             </Link>
           </div>
         </WrapperActionSection>

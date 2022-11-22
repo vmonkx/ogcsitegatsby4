@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ArticleList from "./ArticleList";
 import Container from "./Container";
 
-import { ButtonPrimary } from "./Styled/Button";
+import { ButtonSecondary } from "./Styled/Button";
 import { Section } from "./Styled/Section";
 import { HeaderSectionStyled } from "./Styled/HeaderStyled";
 
@@ -27,7 +27,7 @@ function LastNews() {
         <WrapperAction>
           <div className="button-container">
             <Link to="/blog" title="Все новости">
-              <ButtonPrimary>Все новости</ButtonPrimary>
+              <ButtonSecondary>Все новости</ButtonSecondary>
             </Link>
           </div>
         </WrapperAction>

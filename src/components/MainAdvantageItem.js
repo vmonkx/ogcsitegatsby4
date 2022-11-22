@@ -5,7 +5,7 @@ import NumberedItem from "./NumberedItem";
 
 import { GatsbyImage } from "gatsby-plugin-image";
 
-import quoteImg from "../images/quoteBright.svg";
+import QuoteImg from "../images/quoteBright.svg";
 import rehypeRaw from "rehype-raw";
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
@@ -135,7 +135,7 @@ const TextQuote = styled(motion.div)`
   flex-direction: column;
   height: 100%;
   position: relative;
-  &::before {
+  /* &::before {
     content: "";
     position: absolute;
     top: 0;
@@ -146,6 +146,13 @@ const TextQuote = styled(motion.div)`
     background-size: contain;
     background-position: left;
     background-repeat: no-repeat;
+  } */
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
   }
   p {
     font-size: 1.5rem;
@@ -163,11 +170,11 @@ const renderers = {
   blockquote: (value) => {
     return (
       <TextQuote
-        img={quoteImg}
         initial="hidden"
         whileInView="visible"
         variants={animationHomeVariant}
       >
+        <img src={QuoteImg} />
         {value.children}
       </TextQuote>
     );
