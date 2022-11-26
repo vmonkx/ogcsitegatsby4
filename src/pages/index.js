@@ -95,4 +95,4 @@ export const query = graphql`
   }
 `;
 
-export const Head = () => <Seo />;
+export const Head = ({location}) => <Seo pathname={location.pathname} />;

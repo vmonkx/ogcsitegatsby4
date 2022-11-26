@@ -302,6 +302,7 @@ export const Head = ({ location, params, data, pageContext }) => {
       description={strapiPersonal.seo?.description}
       cover={getSrc(strapiPersonal.seo?.shareImage.localFile)}
       breadCrumbSchema={breadCrumbSchema}
+      pathname={location.pathname}
     />
   );
 };

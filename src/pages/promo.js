@@ -62,9 +62,10 @@ export const query = graphql`
   }
 `;
 
-export const Head = () => (
+export const Head = ({ location }) => (
   <Seo
     title="Специальные предложения"
     description="Специальные предложения, акции для пациентов клиники доктора Горчаковой - OGC clinic"
+    pathname={location.pathname}
   />
 );

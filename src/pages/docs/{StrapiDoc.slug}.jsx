@@ -46,5 +46,5 @@ export const query = graphql`
 `;
 
 export const Head = ({ location, params, data, pageContext }) => {
-  return <Seo title={data.strapiDoc?.title} />;
+  return <Seo title={data.strapiDoc?.title} pathname={location.pathname} />;
 };

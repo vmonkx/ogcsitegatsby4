@@ -128,6 +128,7 @@ export const Head = ({ location, params, data, pageContext }) => {
       meta={data.strapiCategory.seo?.meta}
       cover={getSrc(data.strapiCategory.seo?.shareImage.localFile)}
       breadCrumbSchema={breadCrumbSchema}
+      pathname={location.pathname}
     />
   );
 };

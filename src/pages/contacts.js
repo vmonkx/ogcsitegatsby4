@@ -21,9 +21,10 @@ function Contacts() {
 
 export default Contacts;
 
-export const Head = () => (
+export const Head = ({location}) => (
   <Seo
     title="Наши контакты"
     description="Сведения о медицинской организации. Контактная информация о Клинике доктора Горчаковой - OGC clinic"
+    pathname={location.pathname}
   />
 );

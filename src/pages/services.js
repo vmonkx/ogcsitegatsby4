@@ -73,9 +73,10 @@ export const query = graphql`
   }
 `;
 
-export const Head = () => (
+export const Head = ({ location }) => (
   <Seo
     title="Наши услуги"
     description="Широкий перечень услуг косметологии в Казани, дерматологии, услуги аппаратной косметологии, услуги эстетической косметологии, уникальные авторские методики, а также лабораторные исследования."
+    pathname={location.pathname}
   />
 );

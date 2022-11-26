@@ -261,6 +261,7 @@ export const Head = ({ location, params, data, pageContext }) => {
     <Seo
       title={strapiService.seo?.title}
       description={strapiService.seo?.description}
+      pathname={location.pathname}
       meta={strapiService.seo?.meta}
       cover={getSrc(strapiService.seo?.shareImage.localFile)}
       breadCrumbSchema={breadCrumbSchema}

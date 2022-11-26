@@ -23,9 +23,10 @@ function ReviewsPage() {
 
 export default ReviewsPage;
 
-export const Head = () => (
+export const Head = ({ location }) => (
   <Seo
     title="Оставить отзыв"
     description="Напишите нам отзыв - это поможет нам стать еще лучше для Вас!"
+    pathname={location.pathname}
   />
 );

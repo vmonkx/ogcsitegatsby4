@@ -13,7 +13,6 @@ import MarkdownArticle from "../components/MarkdownArticle";
 import NavigationBack from "../components/NavigationBack";
 import Seo from "../components/Seo";
 
-
 const PageWraper = styled.div`
   .cover-wrapper {
     position: relative;
@@ -188,9 +187,10 @@ export const query = graphql`
   }
 `;
 
-export const Head = () => (
+export const Head = ({ location }) => (
   <Seo
     title="О клинике"
     description="Информация о клинике доктора Горчаковой - OGC clinic."
+    pathname={location.pathname}
   />
 );

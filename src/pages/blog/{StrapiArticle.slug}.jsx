@@ -107,6 +107,7 @@ export const Head = ({ location, params, data, pageContext }) => {
       description={pageContext.description}
       breadCrumbSchema={breadCrumbSchema}
       ogtype="article"
+      pathname={location.pathname}
     />
   );
 };

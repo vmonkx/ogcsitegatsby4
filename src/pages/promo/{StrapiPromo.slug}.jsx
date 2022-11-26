@@ -32,7 +32,7 @@ export const query = graphql`
           }
         }
       }
-      
+
       image {
         id
         mime
@@ -104,6 +104,7 @@ export const Head = ({ location, params, data, pageContext }) => {
       description={data.strapiPromo.seo?.description}
       cover={getSrc(data.strapiPromo.seo?.shareImage.localFile)}
       breadCrumbSchema={breadCrumbSchema}
+      pathname={location.pathname}
     />
   );
 };
