@@ -32,7 +32,7 @@ const Seo = ({
   const seo = {
     description: description || defaultSeo.description || defaultDescription,
     url: url,
-    siteUrl: `${url}${pathname}`,
+    siteUrl: pathname ? `${url}${pathname}` : url,
     pageTitle: title,
     defaultTitle: siteName || defaultTitle,
     cover: cover
