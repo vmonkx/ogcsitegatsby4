@@ -64,7 +64,7 @@ function ServicePageTemplate({ location, pageContext, data }) {
             />
           ))}
           {prices && <ServicePrice content={prices} />}
-          <QuickOrder />
+          <QuickOrder textMessage={`Хочу записаться на процедуру "${name}"`} />
         </Container>
       </SectionMain>
     </Layout>

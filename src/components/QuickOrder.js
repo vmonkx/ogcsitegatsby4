@@ -1,8 +1,8 @@
-import React from "react"
-import styled from "styled-components"
-import { useModalWindow } from "../contexts/ModalProvider"
-import { ButtonSecondary } from "./Styled/Button"
-import { Section } from "./Styled/Section"
+import React from "react";
+import styled from "styled-components";
+import { useModalWindow } from "../contexts/ModalProvider";
+import { ButtonSecondary } from "./Styled/Button";
+import { Section } from "./Styled/Section";
 
 const OrderBox = styled.div`
   margin: 0 auto;
@@ -14,7 +14,7 @@ const OrderBox = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 1rem;
   align-items: center;
-`
+`;
 
 const OrderHeader = styled.h3`
   width: 100%;
@@ -31,20 +31,26 @@ const OrderHeader = styled.h3`
   text-fill-color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-`
+`;
 
 const OrderDescr = styled.p`
   margin: 0;
-`
+`;
 
 const OrderItem = styled.div`
   display: grid;
   padding: initial;
   width: auto;
-`
+`;
 
-function QuickOrder() {
-  const { toggle } = useModalWindow()
+function QuickOrder({ textMessage }) {
+  const { toggle, setTextMessage } = useModalWindow();
+
+  const handleClick = () => {
+    setTextMessage(textMessage);
+    toggle();
+  };
+
   return (
     <Section>
       <OrderBox>
@@ -60,11 +66,11 @@ function QuickOrder() {
           </OrderDescr>
         </OrderItem>
         <OrderItem>
-          <ButtonSecondary onClick={toggle}>Записаться</ButtonSecondary>
+          <ButtonSecondary onClick={handleClick}>Записаться</ButtonSecondary>
         </OrderItem>
       </OrderBox>
     </Section>
-  )
+  );
 }
 
-export default QuickOrder
+export default QuickOrder;
