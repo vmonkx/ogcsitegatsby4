@@ -340,6 +340,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: process.env.SITE_URL,
+        stripQueryString: true,
+      },
+    },
+    {
       resolve: "gatsby-plugin-robots-txt",
       options: {
         host: process.env.SITE_URL,

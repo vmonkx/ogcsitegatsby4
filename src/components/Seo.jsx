@@ -32,7 +32,7 @@ const Seo = ({
   const seo = {
     description: description || defaultSeo.description || defaultDescription,
     url: url,
-    siteUrl: pathname ? `${url}${pathname}` : url,
+    pageUrl: pathname ? `${url}${pathname}` : url,
     pageTitle: title,
     defaultTitle: siteName || defaultTitle,
     cover: cover
@@ -95,7 +95,7 @@ const Seo = ({
       <meta name="msapplication-TileImage" content={seo.cover} />
       <meta name="yandex-verification" content={seo.yandexVerf} />
       <meta name="facebook-domain-verification" content={seo.facebookVerf} />
-      <link rel="canonical" href={`${seo.siteUrl}`} />
+
       <script type="application/ld+json">{JSON.stringify(schemaOrg)}</script>
       {breadCrumbSchema && (
         <script type="application/ld+json">

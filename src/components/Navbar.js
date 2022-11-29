@@ -4,7 +4,6 @@ import { Link, useStaticQuery, graphql } from "gatsby";
 
 import Container from "./Container";
 import { useModalWindow } from "../contexts/ModalProvider";
-import { ButtonPrimary } from "./Styled/Button";
 import {
   NavbarStyled,
   NavButtonStyled,
