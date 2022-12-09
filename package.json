@@ -50,5 +50,8 @@
         "rehype-raw": "^6.1.1",
         "styled-components": "^5.3.6",
         "swiper": "^8.4.4"
+    },
+    "engines": {
+        "node": ">=14.21.1 <=18.x.x"
     }
 }
