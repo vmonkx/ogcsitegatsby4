@@ -11,7 +11,7 @@ const PriceSectionStyled = styled.div`
   border-radius: 30px;
   background: #fff;
   z-index: 2;
-  @media ${(props) => props.theme.media.meduim} {
+  @media ${(props) => props.theme.media.medium} {
     flex-direction: row;
     padding: 30px;
     box-shadow: 0 0 33px rgba(0, 0, 0, 0.05);
@@ -27,7 +27,7 @@ const PriceHeaderWrapper = styled.div`
   align-items: center;
   margin-bottom: 1.2rem;
 
-  @media ${(props) => props.theme.media.meduim} {
+  @media ${(props) => props.theme.media.medium} {
     margin-bottom: 0;
     flex-basis: 25%;
   }
@@ -56,7 +56,7 @@ const PriceHeaderCategory = styled.h2`
     width: 100%;
     height: 1.2px;
     background: ${(props) => props.theme.primaryColor.color500};
-    @media ${(props) => props.theme.media.meduim} {
+    @media ${(props) => props.theme.media.medium} {
       bottom: -7px;
     }
   }
@@ -68,7 +68,7 @@ const PriceHeaderDescription = styled.span`
 `;
 
 const PriceContentWrap = styled.div`
-  @media ${(props) => props.theme.media.meduim} {
+  @media ${(props) => props.theme.media.medium} {
     margin-left: 2rem;
   }
 `;

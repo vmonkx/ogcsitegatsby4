@@ -53,7 +53,7 @@ const HeroContainer = styled.div`
     margin: 5px auto;
   }
 
-  @media ${(props) => props.theme.media.meduim} {
+  @media ${(props) => props.theme.media.medium} {
     .banner {
       padding: 0.8rem 1.2rem;
     }
@@ -107,7 +107,7 @@ const Img = styled(GatsbyImage)`
 
   grid-area: 1/1;
 
-  @media ${(props) => props.theme.media.meduim} {
+  @media ${(props) => props.theme.media.medium} {
     max-height: calc(100vh);
   }
 

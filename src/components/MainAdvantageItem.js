@@ -13,7 +13,7 @@ import { animationHomeVariant } from "../animations/animations";
 
 const AdvantageContainer = styled.div`
   margin: 52px 0;
-  @media ${(props) => props.theme.media.meduim} {
+  @media ${(props) => props.theme.media.medium} {
     margin: 72px 0;
   }
 `;
@@ -79,7 +79,7 @@ const ChildContainer = styled.div`
   padding-left: 4.16vw;
   padding-right: 4.16vw;
 
-  @media ${(props) => props.theme.media.meduim} {
+  @media ${(props) => props.theme.media.medium} {
     ${(props) =>
       props.position !== "left"
         ? `padding-left: 4.16vw;
