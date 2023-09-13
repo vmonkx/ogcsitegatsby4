@@ -100,11 +100,13 @@ export const Head = ({ location, params, data, pageContext }) => {
     ],
   };
 
+ 
+
   return (
     <Seo
-      title={pageContext.title}
+      title={data.strapiArticle.title}
       cover={getSrc(data.strapiArticle.image.localFile)}
-      description={pageContext.description}
+      description={data.strapiArticle.description}
       breadCrumbSchema={breadCrumbSchema}
       ogtype="article"
       pathname={location.pathname}

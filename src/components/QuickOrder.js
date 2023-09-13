@@ -62,7 +62,6 @@ function QuickOrder({ textMessage }) {
         <OrderItem>
           <OrderDescr>
             Запишитесь на персональную консультацию специалиста по красоте
-            бесплатно
           </OrderDescr>
         </OrderItem>
         <OrderItem>

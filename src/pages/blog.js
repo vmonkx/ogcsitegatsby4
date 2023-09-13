@@ -88,10 +88,17 @@ export const query = graphql`
   }
 `;
 
-export const Head = ({ location }) => (
-  <Seo
-    title="Блог OGC clinic"
-    description="Новости и главные события OGC clinic - Клиники доктора Горчаковой"
-    pathname={location.pathname}
-  />
-);
+export const Head = ({ location, params, data, pageContext }) => {
+  
+
+  const titlePage = pageContext?.currentPage
+    ? `Блог OGC clinic - страница ${pageContext?.currentPage}`
+    : "Блог OGC clinic";
+  return (
+    <Seo
+      title={titlePage}
+      description="Новости и главные события OGC clinic - Клиники доктора Горчаковой"
+      pathname={location.pathname}
+    />
+  );
+};

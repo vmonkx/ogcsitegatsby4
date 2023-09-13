@@ -63,8 +63,6 @@ const SpecialistItemStyled = styled(motion.div)`
     margin: 0 auto;
   }
   .personal-info {
-    grid-column: 1/3;
-    grid-row: 2;
     padding: 20px;
 
     min-height: 180px;
@@ -82,6 +80,8 @@ const SpecialistItemStyled = styled(motion.div)`
     font-size: 1.2rem;
     color: ${(props) => props.theme.primaryColor.color500};
     margin-bottom: 10px;
+    flex-basis: 100%;
+    flex-grow: 1;
     @media screen and (min-width: 1440px) {
       font-size: 1.5rem;
     }
@@ -105,8 +105,6 @@ const SpecialistItemStyled = styled(motion.div)`
     }
   }
 `;
-
-
 
 function SpecialistItem({ item, index }) {
   return (

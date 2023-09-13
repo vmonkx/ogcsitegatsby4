@@ -4,6 +4,7 @@ import { GatsbyImage } from "gatsby-plugin-image";
 
 import { Link } from "gatsby";
 import { motion } from "framer-motion";
+import { BadgeStyled } from "./Styled/Badge";
 
 const CategoryItemWrap = styled.div`
   display: flex;
@@ -113,6 +114,7 @@ function CategoryItem({ name, cover, coverColor, slug }) {
             <GatsbyImage className="category-img" image={cover} alt={name} />
             <div className="category--img-gradient"></div>
           </div>
+          {/* <BadgeStyled>новинка</BadgeStyled> */}
 
           <div className="category-title">
             <h3>{name}</h3>
