@@ -72,20 +72,21 @@ const Seo = ({
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.cover} />
       <meta
-        name="og:title"
+        property="og:title"
         itemProp="name"
         content={seo.pageTitle || seo.defaultTitle}
       />
-      <meta name="og:image" itemProp="image" content={seo.cover} />
-      <meta name="og:image:type" content="image/jpeg" />
+      <meta property="og:image" itemProp="image" content={seo.cover} />
+      <meta property="og:image:type" content="image/jpeg" />
       <meta
         property="og:image:alt"
         content={seo.pageTitle || seo.defaultTitle}
       />
       <meta property="og:description" content={seo.description} />
-      <meta name="og:url" content={seo.url} />
-      <meta name="og:type" content={seo.ogtype} />
-      <meta name="og:locale" content={seo.locale} />
+      <meta property="og:url" content={seo.url} />
+      <meta property="og:type" content={seo.ogtype} />
+      <meta property="og:locale" content={seo.locale} />
+      <meta property="og:site_name" content={seo.defaultTitle} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={seo.pageTitle || seo.defaultTitle} />
       <meta name="twitter:url" content={seo.url} />
