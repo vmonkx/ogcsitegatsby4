@@ -49,5 +49,6 @@
     "rehype-raw": "^7.0.0",
     "styled-components": "^6.1.19",
     "swiper": "^11.2.8"
-  }
+  },
+  "packageManager": "pnpm@10.11.0"
 }

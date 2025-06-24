@@ -6,12 +6,13 @@ import PropTypes from "prop-types";
 
 const Seo = ({
   title,
-  description,
-  meta,
+  description = "",
+  meta = [],
   cover,
   breadCrumbSchema,
   pathname,
   children,
+  lang = "ru",
 }) => {
   const {
     siteMetadata: {
@@ -19,7 +20,7 @@ const Seo = ({
       description: defaultDescription,
       author,
       url,
-      lang,
+      lang: siteLang,
       locale,
       telephone,
       yandexVerf,
@@ -113,12 +114,6 @@ const Seo = ({
 };
 
 export default Seo;
-
-Seo.defaultProps = {
-  lang: `ru`,
-  meta: [],
-  description: ``,
-};
 
 Seo.propTypes = {
   description: PropTypes.string,
