@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<svg version="1.1" id="Слой_1"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 506 428" style="enable-background:new 0 0 506 428;" xml:space="preserve">
+	<style type="text/css">
+	.st0{opacity:0.2;}
+	.st1{fill:url(#_x201D_-copy_1_);}
+	</style>
+	<desc>Created with Sketch.</desc>
+	<g id="Page-1" class="st0">
+		<g id="h4_main" transform="translate(-36.000000, -3818.000000)">
+
+			<linearGradient id="_x201D_-copy_1_" gradientUnits="userSpaceOnUse" x1="-6.4532" y1="4451.2715" x2="-8.2525" y2="4452.4492" gradientTransform="matrix(506 0 0 -427.9995 4040 1909445.625)">
+				<stop offset="0" style="stop-color:#FF5300"/>
+				<stop offset="1" style="stop-color:#EA0BEB"/>
+			</linearGradient>
+			<path id="_x201D_-copy" class="st1" d="M384.4,4237.1l-20.6-21.5c-9.6-11.4-6.9-24.3,1.4-31.5c15.1-11.4,95.9-74.4,97.3-171.6
+			c0,0-23.3,10-54.8,10c-53.5,0-98.7-44.3-98.7-101.5c0-55.8,45.2-103,108.3-103c52.1,0,124.7,41.5,124.7,165.9
+			c0,150.2-95.9,228.8-127.5,256C404.9,4247.1,395.3,4249.9,384.4,4237.1z M111.4,4237.1l-20.6-21.5c-9.6-11.4-6.9-24.3,1.4-31.5
+			c15.1-11.4,95.9-74.4,97.3-171.6c0,0-23.3,10-54.8,10c-53.5,0-98.7-44.3-98.7-101.5c0-55.8,45.2-103,108.3-103
+			c52.1,0,124.7,41.5,124.7,165.9c0,150.2-95.9,228.8-127.5,256C131.9,4247.1,122.3,4249.9,111.4,4237.1z"/>
+		</g>
+	</g>
+</svg>
