@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { getSrc } from "gatsby-plugin-image";
+import { getSrc, getImage } from "gatsby-plugin-image";
 import Layout from "../../components/Layout";
 import Container from "../../components/Container";
 import HeaderService from "../../components/HeaderService";
@@ -41,7 +41,7 @@ function ServicePageTemplate({ location, pageContext, data }) {
           <ContentService content={data.strapiService}></ContentService>
           {advancedContent &&
             advancedContent.map((advantage) => (
-              <ServiceAdvantage content={advantage} />
+              <ServiceAdvantage key={advantage.id} content={advantage} />
             ))}
           <Section>
             {compareSection || resultSection ? (
@@ -103,6 +103,7 @@ export const query = graphql`
         }
       }
       advancedContent {
+        id
         title
         listAdvantage {
           id
@@ -263,7 +264,9 @@ export const Head = ({ location, params, data, pageContext }) => {
       description={strapiService.seo?.description}
       pathname={location.pathname}
       meta={strapiService.seo?.meta}
-      cover={getSrc(strapiService.seo?.shareImage.localFile)}
+      cover={
+        strapiService.seo?.shareImage?.localFile?.childImageSharp?.resize?.src
+      }
       breadCrumbSchema={breadCrumbSchema}
     />
   );

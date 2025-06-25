@@ -125,7 +125,10 @@ export const Head = ({ location, params, data, pageContext }) => {
       title={data.strapiCategory.seo?.title}
       description={data.strapiCategory.seo?.description}
       meta={data.strapiCategory.seo?.meta}
-      cover={getSrc(data.strapiCategory.seo?.shareImage.localFile)}
+      cover={
+        data.strapiCategory.seo?.shareImage?.localFile?.childImageSharp?.resize
+          ?.src
+      }
       breadCrumbSchema={breadCrumbSchema}
       pathname={location.pathname}
     />

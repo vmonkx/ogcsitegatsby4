@@ -30,6 +30,8 @@ const Seo = ({
     strapi: { siteName, defaultSeo },
   } = useSiteMetaData();
 
+  console.log("===cover===", cover);
+
   const seo = {
     description: description || defaultSeo.description || defaultDescription,
     url: url,
