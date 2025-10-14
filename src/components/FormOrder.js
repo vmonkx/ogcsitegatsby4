@@ -56,6 +56,18 @@ function FormOrder({ textMessage }) {
       console.log("gtag", error);
     } finally {
       if (!values.lastName) {
+        const sessionId =
+          typeof window !== "undefined" &&
+          window.ct &&
+          typeof window.ct === "function"
+            ? (
+                window.ct(
+                  "calltracking_params",
+                  process.env.CALLTOUCH_MOD_ID,
+                ) || {}
+              ).sessionId || ""
+            : "";
+
         axios
           .post(
             `/api/order`,
@@ -64,13 +76,14 @@ function FormOrder({ textMessage }) {
                 firstName: values.firstName,
                 comment: values.comment,
                 phone: values.phone,
+                sessionId,
               },
             },
             {
               headers: {
                 "Content-Type": "application/json",
               },
-            }
+            },
           )
           .then((res) => {
             if (res.status === 200) {
