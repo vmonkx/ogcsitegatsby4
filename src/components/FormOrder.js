@@ -76,7 +76,7 @@ function FormOrder({ textMessage }) {
                 firstName: values.firstName,
                 comment: values.comment,
                 phone: values.phone,
-                sessionId,
+                sessionId: sessionId,
               },
             },
             {
