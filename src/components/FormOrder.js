@@ -60,12 +60,8 @@ function FormOrder({ textMessage }) {
           typeof window !== "undefined" &&
           window.ct &&
           typeof window.ct === "function"
-            ? (
-                window.ct(
-                  "calltracking_params",
-                  process.env.CALLTOUCH_MOD_ID,
-                ) || {}
-              ).sessionId || ""
+            ? (window.ct("calltracking_params", process.env.CT_MOD_ID) || {})
+                .sessionId || ""
             : "";
 
         axios

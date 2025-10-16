@@ -35,12 +35,6 @@ importers:
       gatsby-plugin-canonical-urls:
         specifier: ^5.14.0
         version: 5.14.0(gatsby@5.14.4(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))
-      gatsby-plugin-google-gtag:
-        specifier: ^5.15.0
-        version: 5.15.0(gatsby@5.14.4(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      gatsby-plugin-google-tagmanager:
-        specifier: ^5.15.0
-        version: 5.15.0(gatsby@5.14.4(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       gatsby-plugin-htaccess:
         specifier: ^1.4.0
         version: 1.4.0
@@ -3290,22 +3284,6 @@ packages:
     peerDependencies:
       gatsby: ^5.0.0-next
 
-  gatsby-plugin-google-gtag@5.15.0:
-    resolution: {integrity: sha512-rbY640ejbR8YzssWGs2RDUVw/RJjI6O62ED0TgExXW3uOQ/JFl0ZPEA+eqBos9qnnjfmbMt+m2iPU+viLtVkMA==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      gatsby: ^5.0.0-next
-      react: ^18.0.0 || ^0.0.0
-      react-dom: ^18.0.0 || ^0.0.0
-
-  gatsby-plugin-google-tagmanager@5.15.0:
-    resolution: {integrity: sha512-33hZbFMkXp3IQ8q2MYXzdczJM3NoLVENgRpErPmarkGoHLXw7sw5C6b5r/328nKpRw3MxOnkOEmBvwyJHN6IeQ==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      gatsby: ^5.0.0-next
-      react: ^18.0.0 || ^0.0.0
-      react-dom: ^18.0.0 || ^0.0.0
-
   gatsby-plugin-htaccess@1.4.0:
     resolution: {integrity: sha512-CaUQ3SPkV8khTk2MvY58KJAGAQFLxrlSb9ysxB+BeOgdruI2F0hWsQQI5/A94VtZsdB/5CbJcZVNmCyDJ+SJqg==}
 
@@ -6489,9 +6467,6 @@ packages:
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
-
-  web-vitals@1.1.2:
-    resolution: {integrity: sha512-PFMKIY+bRSXlMxVAQ+m2aw9c/ioUYfDgrYot0YUa+/xa0sakubWhSDyxAKwzymvXVdF4CZI71g06W+mqhzu6ig==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -10747,22 +10722,6 @@ snapshots:
       '@babel/runtime': 7.27.6
       gatsby: 5.14.4(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3)
 
-  gatsby-plugin-google-gtag@5.15.0(gatsby@5.14.4(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@babel/runtime': 7.27.6
-      gatsby: 5.14.4(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3)
-      minimatch: 3.1.2
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
-  gatsby-plugin-google-tagmanager@5.15.0(gatsby@5.14.4(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@babel/runtime': 7.27.6
-      gatsby: 5.14.4(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      web-vitals: 1.1.2
-
   gatsby-plugin-htaccess@1.4.0:
     dependencies:
       fs-extra: 8.1.0
@@ -14763,8 +14722,6 @@ snapshots:
   web-namespaces@1.1.4: {}
 
   web-namespaces@2.0.1: {}
-
-  web-vitals@1.1.2: {}
 
   webidl-conversions@3.0.1: {}
 

@@ -13,23 +13,25 @@ import {
 } from "./Styled/NavBarStyled";
 import { FaPhoneAlt } from "@react-icons/all-files/fa/FaPhoneAlt";
 import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
-import { OutboundLink } from "gatsby-plugin-google-gtag";
+
 import HightLightButton from "./HightLightButton";
 
 function Navbar({ openModalSearch, setOpenModalSearch }) {
   const [isOpen, setNav] = useState();
 
-  const { allStrapiNavigation } = useStaticQuery(graphql`{
-  allStrapiNavigation(sort: {order: ASC}) {
-    edges {
-      node {
-        id
-        name
-        slug
+  const { allStrapiNavigation } = useStaticQuery(graphql`
+    {
+      allStrapiNavigation(sort: { order: ASC }) {
+        edges {
+          node {
+            id
+            name
+            slug
+          }
+        }
       }
     }
-  }
-}`);
+  `);
 
   const navigations = allStrapiNavigation.edges;
 
@@ -75,13 +77,13 @@ function Navbar({ openModalSearch, setOpenModalSearch }) {
             })}
             <li></li>
             <li>
-              <OutboundLink
+              <Link
                 className="nav-link-phone"
                 href="tel:+78432060707"
                 aria-label="Записаться по телефону"
               >
                 <FaPhoneAlt className="icon-phone" />8 843 206-07-07
-              </OutboundLink>
+              </Link>
             </li>
           </NavListStyled>
           <NavButtonStyled onClick={handleSearch} aria-label="Поиск процедуры">
