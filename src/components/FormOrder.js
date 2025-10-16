@@ -51,18 +51,15 @@ function FormOrder({ textMessage }) {
   const SubmitHandler = async (values) => {
     setLoading(true);
     try {
-      typeof window !== "undefined" && window.gtag("event", "send_form_order");
+      typeof window !== "undefined";
     } catch (error) {
       console.log("gtag", error);
     } finally {
       if (!values.lastName) {
-        const sessionId =
-          typeof window !== "undefined" &&
-          window.ct &&
-          typeof window.ct === "function"
-            ? (window.ct("calltracking_params", process.env.CT_MOD_ID) || {})
-                .sessionId || ""
-            : "";
+        const sessionId = window.ct
+          ? (window.ct("calltracking_params", `${process.env.CT_MOD_ID}`) || {})
+              .sessionId
+          : "";
 
         axios
           .post(

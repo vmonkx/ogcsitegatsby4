@@ -1,11 +1,11 @@
 import axios from "axios";
 
-async function registerCalltouch(name, phone, email, sessionId) {
+async function registerCalltouch(name, phone, comment, sessionId) {
   try {
     const params = new URLSearchParams({
       fio: name,
       phoneNumber: phone,
-      email: email,
+      comment: comment,
       subject: "Заявка с сайта",
     });
 
@@ -26,7 +26,6 @@ async function registerCalltouch(name, phone, email, sessionId) {
     return response.data;
   } catch (error) {
     console.error("Calltouch registration error:", error);
-    throw error;
   }
 }
 
@@ -34,7 +33,15 @@ export default async function (req, res) {
   try {
     // Отправка заявки в основной API
 
-    const { sessionId, ...orderData } = req.body;
+    const { firstName, phone, comment, sessionId } = req.body.data;
+
+    const orderData = {
+      data: {
+        firstName,
+        phone,
+        comment,
+      },
+    };
 
     const orderResponse = await axios.post(
       `${process.env.API_URL}/api/orders`,
@@ -48,12 +55,7 @@ export default async function (req, res) {
     );
 
     // Регистрация в Calltouch
-    await registerCalltouch(
-      req.body.name,
-      req.body.phone,
-      req.body.email,
-      req.body.sessionId,
-    );
+    await registerCalltouch(firstName, phone, comment, sessionId);
 
     if (orderResponse.status === 200) {
       res.status(200).send("Заявка успешно отправлена!");
