@@ -57,9 +57,14 @@ function FormOrder({ textMessage }) {
     } finally {
       if (!values.lastName) {
         const sessionId = window.ct
-          ? (window.ct("calltracking_params", `${process.env.CT_MOD_ID}`) || {})
-              .sessionId
+          ? (
+              window.ct(
+                "calltracking_params",
+                `${process.env.GATSBY_CT_MOD_ID}`,
+              ) || {}
+            ).sessionId
           : "";
+        console.log("SessionId:", sessionId); // Отладка
 
         axios
           .post(
