@@ -64,7 +64,6 @@ function FormOrder({ textMessage }) {
               ) || {}
             ).sessionId
           : "";
-        console.log("SessionId:", sessionId); // Отладка
 
         axios
           .post(
