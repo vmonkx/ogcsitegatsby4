@@ -38,7 +38,7 @@ const Seo = ({
     defaultTitle: siteName || defaultTitle,
     cover: cover
       ? `${url}${cover}`
-      : `${url}${defaultSeo.shareImage.localFile.childImageSharp.resize.src}`,
+      : `${url}${defaultSeo?.shareImage?.localFile?.childImageSharp?.resize?.src}`,
     ogtype: "website",
     meta: meta.length > 0 ? meta : defaultSeo.meta,
     author,

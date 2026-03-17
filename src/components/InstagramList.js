@@ -134,7 +134,7 @@ function InstagramList({ posts }) {
                     <Overlay />
                     <GatsbyImage
                       image={
-                        post.node.localFile.childImageSharp.gatsbyImageData
+                        post.node.localFile?.childImageSharp?.gatsbyImageData
                       }
                       alt={`Пост в instagram - ${post.node.caption.slice(
                         0,

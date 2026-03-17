@@ -3,7 +3,7 @@ import { graphql } from "gatsby";
 import Container from "../../components/Container";
 import Layout from "../../components/Layout";
 import { SectionMain } from "../../components/Styled/Section";
-import { GatsbyImage, getImage, getSrc } from "gatsby-plugin-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import NavigationBack from "../../components/NavigationBack";
 import { ImageStyled } from "../../components/Styled/ImageStyled";
 import { GridContainerStyled } from "../../components/Styled/GridContainerStyled";

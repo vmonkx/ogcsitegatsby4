@@ -50,12 +50,7 @@ function FormOrder({ textMessage }) {
 
   const SubmitHandler = async (values) => {
     setLoading(true);
-    try {
-      typeof window !== "undefined";
-    } catch (error) {
-      console.log("gtag", error);
-    } finally {
-      if (!values.lastName) {
+    if (!values.lastName) {
         const sessionId = window.ct
           ? (
               window.ct(
@@ -110,7 +105,6 @@ function FormOrder({ textMessage }) {
         });
         return;
       }
-    }
   };
 
   const { close } = useModalWindow();

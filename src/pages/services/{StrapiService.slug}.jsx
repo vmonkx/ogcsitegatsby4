@@ -1,6 +1,5 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { getSrc, getImage } from "gatsby-plugin-image";
 import Layout from "../../components/Layout";
 import Container from "../../components/Container";
 import HeaderService from "../../components/HeaderService";

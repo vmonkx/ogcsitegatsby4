@@ -27,8 +27,6 @@ function FeaturedServices() {
   const { allStrapiService } = useStaticQuery(getFeaturedServices);
   const services = allStrapiService.edges;
 
- 
-
   return (
     <Section>
       <Container>
@@ -42,7 +40,7 @@ function FeaturedServices() {
               <CategoryItem
                 key={node.id}
                 name={node.name}
-                cover={node?.cover?.localFile.childImageSharp.gatsbyImageData}
+                cover={node?.cover?.localFile?.childImageSharp?.gatsbyImageData}
                 coverColor={node.coverColor}
                 slug={`/services/${node.slug}`}
               />
