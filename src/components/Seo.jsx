@@ -67,7 +67,9 @@ const Seo = ({
     <>
       <title>
         {seo.pageTitle
-          ? `${seo.pageTitle} - ${defaultTitle}`
+          ? seo.pageTitle.includes(defaultTitle)
+            ? seo.pageTitle
+            : `${seo.pageTitle} - ${defaultTitle}`
           : seo.defaultTitle}
       </title>
       <meta name="description" content={seo.description} />
