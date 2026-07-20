@@ -10,38 +10,32 @@ const WrapperArticle = styled.article`
 
   blockquote {
     position: relative;
-    margin: 30px 0 16px 0;
-    padding: 4px 0 4px 22px;
-    transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
-
+    display: inline-block;
+    padding-top: 60px;
+    margin: 0;
+    font-weight: 600;
+    padding-bottom: 20px;
     &::before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
-      bottom: 0;
-      width: 4px;
-      border-radius: 4px;
-      background: linear-gradient(180deg, #F9516E 0%, #CD026B 100%);
+      width: 100px;
+      height: 100px;
+      background-image: url(${(props) => props.$quote});
+      background-size: contain;
+      background-position: left;
+      background-repeat: no-repeat;
     }
 
     p {
-      margin: 0;
-      font-size: 1.15rem;
-      font-weight: 600;
-      line-height: 1.5;
-      letter-spacing: -0.01em;
-      color: #1F1C27;
-
-      @media screen and (min-width: 768px) {
-        font-size: 1.25rem;
-      }
+      display: inline;
     }
 
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        transform: translateX(4px);
-      }
+    @media screen and (min-width: 768px) {
+      padding-top: 20px;
+      padding-left: 110px;
+      padding-bottom: 20px;
     }
   }
 
