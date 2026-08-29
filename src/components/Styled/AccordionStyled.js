@@ -2,50 +2,62 @@ import styled from "styled-components"
 
 const AccordionStyled = styled.div`
   font-size: 1rem;
-  
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
 `
+
 const AccordionItemStyled = styled.div`
-  padding-top: 5px;
-  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
   .accordion-button {
-    border: 0;
+    border: none;
     width: 100%;
     text-align: left;
-    padding-left: 30px;
-
-    font-size: 1.2rem;
+    padding: 22px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: transparent;
-    position: relative;
-    color: ${props => props.theme.primaryColor.color500};
-    font-weight: 500;
-    .accordion-icon {
-      position: absolute;
+    color: ${props => props.theme.black || '#111827'};
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    transition: color 200ms ease;
+    cursor: pointer;
 
-      top: 2px;
-      left: 0;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: ${props => props.theme.secondaryColor ? props.theme.secondaryColor.color500 : (props.theme.secondary || '#e30277')};
+      }
+    }
 
-      font-size: 1.5rem;
-      color: ${props => props.theme.secondary};
+    .accordion-heading {
+      margin: 0;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
     }
   }
 
+  .accordion-icon {
+    font-size: 1.35rem;
+    color: ${props => props.theme.secondaryColor ? props.theme.secondaryColor.color500 : (props.theme.secondary || '#e30277')};
+    transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 16px;
+    flex-shrink: 0;
+  }
   
-
-  .accordion-content {
-    padding: 0 20px;
-    opacity: 0;
-
-    height: 0;
-    margin: 0;
-    margin-top: -10px;
-
-    border-top: 0;
+  .accordion-icon.active {
+    transform: rotate(180deg);
   }
 
-  .accordion-content.active {
-    height: auto;
-    opacity: 1;
-    padding: 20px 5px;
+  .accordion-content {
+    padding: 4px 8px 24px 8px;
   }
 `
 

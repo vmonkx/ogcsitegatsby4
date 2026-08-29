@@ -35,8 +35,21 @@ const HeroContainer = styled.div`
     border-radius: 30px;
   }
 
-  .banner h1 {
+  .banner h1.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .banner .visible-title {
     font-size: 20px;
+    font-weight: bold;
     color: #fff;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     line-height: 1;
@@ -58,7 +71,7 @@ const HeroContainer = styled.div`
       padding: 0.8rem 1.2rem;
     }
 
-    .banner h1 {
+    .banner .visible-title {
       font-size: 24px;
       line-height: 1;
       margin: 10px auto;
@@ -76,7 +89,7 @@ const HeroContainer = styled.div`
       padding: 0.8rem 1.2rem;
     }
 
-    .banner h1 {
+    .banner .visible-title {
       font-size: 24px;
       line-height: 1;
     }
@@ -88,7 +101,7 @@ const HeroContainer = styled.div`
       margin-bottom: 5rem;
     }
 
-    .banner h1 {
+    .banner .visible-title {
       font-size: 30px;
 
       line-height: 30px;
@@ -127,7 +140,7 @@ const Img = styled(GatsbyImage)`
 function BackgroundHero({ image, title, info }) {
   return (
     <HeroContainer role="banner">
-      <Img image={image} alt={`Клиника OGC - ${title} ${info}`} />
+      <Img image={image} alt={`Клиника OGC - ${title} ${info}`} loading="eager" />
       <div className="wrapper">
         <motion.div
           className="banner"
@@ -135,7 +148,8 @@ function BackgroundHero({ image, title, info }) {
           animate="visible"
           variants={animationBannerVariant}
         >
-          <h1>{title}</h1>
+          <h1 className="visually-hidden">Косметологическая клиника премиум-класса в Казани | OGC Clinic — передовые технологии. {title}</h1>
+          <div className="visible-title" aria-hidden="true">{title}</div>
           <p>{info}</p>
         </motion.div>
       </div>

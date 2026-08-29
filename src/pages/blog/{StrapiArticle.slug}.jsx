@@ -30,6 +30,8 @@ export const query = graphql`
       id
       slug
       title
+      publishedAt
+      updatedAt
       image {
         id
         mime
@@ -37,11 +39,9 @@ export const query = graphql`
         localFile {
           childImageSharp {
             gatsbyImageData(
-              layout: FULL_WIDTH
+              layout: CONSTRAINED
               placeholder: BLURRED
-              aspectRatio: 1.6
               breakpoints: [750, 1080, 1366, 1920]
-              transformOptions: { fit: COVER, cropFocus: ENTROPY }
               formats: [AUTO, WEBP, AVIF]
             )
           }
@@ -102,12 +102,44 @@ export const Head = ({ location, params, data, pageContext }) => {
 
  
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${data.site.siteMetadata?.url}${location.pathname}`,
+    },
+    "headline": data.strapiArticle.title,
+    "description": data.strapiArticle.description,
+    "image": data.strapiArticle.image.url.startsWith("http")
+      ? data.strapiArticle.image.url
+      : `${data.site.siteMetadata?.url}${data.strapiArticle.image.url}`,
+    "author": {
+      "@type": "Person",
+      "name": data.strapiArticle.personal.name,
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "OGC clinic",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${data.site.siteMetadata?.url}/logo.png`, // Fallback for standard schema validation
+      },
+    },
+    "datePublished": data.strapiArticle.publishedAt,
+    "dateModified": data.strapiArticle.updatedAt || data.strapiArticle.publishedAt,
+  };
+
   return (
     <Seo
       title={data.strapiArticle.title}
       cover={getSrc(data.strapiArticle.image.localFile)}
       description={data.strapiArticle.description}
       breadCrumbSchema={breadCrumbSchema}
+      articleSchema={articleSchema}
+      publishedAt={data.strapiArticle.publishedAt}
+      updatedAt={data.strapiArticle.updatedAt}
+      authorName={data.strapiArticle.personal.name}
       ogtype="article"
       pathname={location.pathname}
     />

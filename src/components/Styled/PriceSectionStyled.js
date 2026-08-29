@@ -68,6 +68,8 @@ const PriceHeaderDescription = styled.span`
 `;
 
 const PriceContentWrap = styled.div`
+  flex: 1;
+  width: 100%;
   @media ${(props) => props.theme.media.medium} {
     margin-left: 2rem;
   }

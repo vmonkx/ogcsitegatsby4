@@ -232,24 +232,19 @@ const WrapperArticle = styled.article`
 
 const ImageWrapper = styled.span`
   display: flex;
-  border-radius: 30px;
-  margin-bottom: 1rem !important;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 2rem 0 !important;
 
   img {
-    border-radius: 30px;
-    width: 100%;
-    height: 100%;
-  }
-
-  @media ${(props) => props.theme.media.large} {
-    img {
-      margin: 0 auto;
-      width: 100%;
-      height: 100%;
-      max-height: 700px;
-      object-fit: cover;
-    }
+    border-radius: 24px;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 850px;
+    object-fit: contain;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   }
 `;
 

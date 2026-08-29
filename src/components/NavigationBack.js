@@ -8,7 +8,14 @@ const BackLinkStyled = styled(motion.div)`
   margin-bottom: 2rem;
 
   a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    text-decoration: none;
+
+    &:hover {
+      transform: translateX(-4px);
+    }
   }
   span {
     color: ${(props) => props.theme.primaryColor.color500};
@@ -23,6 +30,8 @@ const BackLinkStyled = styled(motion.div)`
     line-height: 1;
     font-size: 1rem;
     margin-right: 5px;
+    display: flex;
+    align-items: center;
   }
 `;
 

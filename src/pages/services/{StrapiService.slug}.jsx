@@ -188,7 +188,7 @@ export const query = graphql`
         id
         title
         priceItem {
-          description
+          
           code
           duration
           id

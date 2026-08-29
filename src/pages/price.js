@@ -88,7 +88,7 @@ export const query = graphql`{
           title
           priceItem {
             code
-            description
+            
             id
             duration
             name
@@ -100,10 +100,44 @@ export const query = graphql`{
   }
 }`;
 
-export const Head = ({ location }) => (
-  <Seo
-    title="Стоимость услуг"
-    description="Прайс-лист на услуги клиники доктора Горчаковой - OGC clinic"
-    pathname={location.pathname}
-  />
-);
+export const Head = ({ location, data: { allStrapiService } }) => {
+  const categories = allStrapiService.group;
+  let positionCounter = 1;
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": categories.flatMap(category => 
+      (category.nodes || []).flatMap(service =>
+        (service.prices || []).flatMap(priceGroup => 
+          (priceGroup.priceItem || []).map(priceItem => ({
+            "@type": "ListItem",
+            "position": positionCounter++,
+            "item": {
+              "@type": "Service",
+              "name": priceItem.name || priceGroup.title,
+              "description": priceItem.description || priceItem.name || priceGroup.title,
+              ...(priceItem.code && { "identifier": priceItem.code }),
+              "offers": {
+                "@type": "Offer",
+                "price": priceItem.price ? priceItem.price.toString().replace(/\\s/g, '') : "0",
+                "priceCurrency": "RUB"
+              }
+            }
+          }))
+        )
+      )
+    )
+  };
+
+  return (
+    <Seo
+      title="Стоимость услуг"
+      description="Прайс-лист на услуги клиники доктора Горчаковой - OGC clinic"
+      pathname={location.pathname}
+    >
+      <script type="application/ld+json">
+        {JSON.stringify(schemaData)}
+      </script>
+    </Seo>
+  );
+};

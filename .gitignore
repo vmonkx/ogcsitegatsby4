@@ -112,3 +112,27 @@ public
 .DS_Store
 .AppleDouble
 .LS
+
+# Audit and SEO reports
+*-audit/
+*audit/
+audits/
+audit/
+reports/
+*report*/
+*.audit.*
+GEO-AUDIT*
+SEO-AUDIT*
+
+# AI Agent & IDE configs
+.agents/
+.claude/
+.gemini/
+.cursor/
+.cline/
+.roo/
+.ai/
+AGENT.md
+AGENTS.md
+CLAUDE.md
+GEMINI.md

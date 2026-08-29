@@ -272,6 +272,8 @@ export const query = graphql`
 
 export const Head = ({ location, params, data, pageContext }) => {
   const { strapiPersonal } = data;
+  const siteUrl = "https://ogcclinic.ru";
+
   const breadCrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -295,14 +297,40 @@ export const Head = ({ location, params, data, pageContext }) => {
     ],
   };
 
+  const imageUrl = strapiPersonal.cover?.url;
+  const finalImageUrl = imageUrl
+    ? imageUrl.startsWith("http")
+      ? imageUrl
+      : `${siteUrl}${imageUrl}`
+    : undefined;
+
+  const profileSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: {
+      "@type": "Person",
+      name: strapiPersonal.name,
+      jobTitle: strapiPersonal.specialty,
+      description: strapiPersonal.description,
+      ...(finalImageUrl && { image: finalImageUrl }),
+      url: `${siteUrl}${location.pathname}`,
+      worksFor: {
+        "@type": "MedicalClinic",
+        "@id": `${siteUrl}/#organization`,
+      },
+    },
+  };
+
   return (
     <Seo
-      title={strapiPersonal.seo?.title}
-      description={`${strapiPersonal.name} - ${strapiPersonal.seo?.description}`}
+      title={strapiPersonal.seo?.title || strapiPersonal.name}
+      description={`${strapiPersonal.name} - ${strapiPersonal.seo?.description || strapiPersonal.specialty}`}
       cover={
-        strapiPersonal.seo?.shareImage?.localFile?.childImageSharp?.resize?.src
+        strapiPersonal.seo?.shareImage?.localFile?.childImageSharp?.resize?.src || strapiPersonal.cover?.url
       }
       breadCrumbSchema={breadCrumbSchema}
+      customSchema={profileSchema}
+      ogtype="profile"
       pathname={location.pathname}
     />
   );

@@ -185,10 +185,52 @@ export const query = graphql`{
   }
 }`;
 
-export const Head = ({ location }) => (
-  <Seo
-    title="О клинике"
-    description="Информация о клинике доктора Горчаковой - OGC clinic."
-    pathname={location.pathname}
-  />
-);
+export const Head = ({ location, data }) => {
+  const { strapiAboutPage, allStrapiPersonal } = data;
+  const seoData = strapiAboutPage?.seo;
+  const personals = allStrapiPersonal?.edges || [];
+
+  const siteUrl = "https://ogcclinic.ru"; // Use production URL for schema
+
+  // Generate Person objects for the clinic's specialists
+  const employees = personals.map(({ node }) => {
+    const imageUrl = node.avatar?.url;
+    const finalImageUrl = imageUrl
+      ? imageUrl.startsWith("http")
+        ? imageUrl
+        : `${siteUrl}${imageUrl}`
+      : undefined;
+
+    return {
+      "@type": "Person",
+      name: node.name,
+      jobTitle: node.specialty,
+      ...(finalImageUrl && { image: finalImageUrl }),
+      url: `${siteUrl}/specialist/${node.slug}/`,
+    };
+  });
+
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: seoData?.title || "О клинике",
+    description: seoData?.description || "Информация о клинике доктора Горчаковой - OGC clinic.",
+    url: `${siteUrl}${location.pathname}`,
+    mainEntity: {
+      "@type": "MedicalClinic",
+      "@id": `${siteUrl}/#organization`,
+      employees: employees,
+    },
+  };
+
+  return (
+    <Seo
+      title={seoData?.title || "О клинике"}
+      description={seoData?.description || "Информация о клинике доктора Горчаковой - OGC clinic."}
+      meta={seoData?.meta || []}
+      cover={seoData?.shareImage?.url}
+      pathname={location.pathname}
+      customSchema={aboutSchema}
+    />
+  );
+};

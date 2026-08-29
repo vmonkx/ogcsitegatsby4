@@ -93,4 +93,13 @@ export const query = graphql`
   }
 `;
 
-export const Head = () => <Seo />;
+export const Head = () => {
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Клиника доктора Горчаковой - OGC clinic",
+    url: "https://ogcclinic.ru/",
+  };
+
+  return <Seo customSchema={websiteSchema} />;
+};

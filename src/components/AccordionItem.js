@@ -1,12 +1,11 @@
 import React, { useState } from "react"
 import { AccordionItemStyled } from "./Styled/AccordionStyled"
-import { BiListPlus } from "@react-icons/all-files/bi/BiListPlus"
-import { BiListMinus } from "@react-icons/all-files/bi/BiListMinus"
+import { BiChevronDown } from "@react-icons/all-files/bi/BiChevronDown"
 import PriceListItem from "./PriceListItem"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 function AccordionItem(props) {
-  const { label, hiddenContent,itemID } = props
+  const { label, hiddenContent, itemID } = props
   const [visibility, setVisibility] = useState(false)
 
   const handleToggleVisibility = () => {
@@ -16,48 +15,51 @@ function AccordionItem(props) {
   const activeStatus = visibility ? "active" : ""
   return (
     <AccordionItemStyled role="presentation">
-      <button className="accordion-button" onClick={handleToggleVisibility} aria-expanded={visibility} id={`accordion__title_${itemID}`}>
-        <div className="accordion-icon">
-          {visibility ? <BiListMinus /> : <BiListPlus />}
+      <button 
+        className={`accordion-button ${activeStatus}`} 
+        onClick={handleToggleVisibility} 
+        aria-expanded={visibility} 
+        id={`accordion__title_${itemID}`}
+      >
+        <h3 className="accordion-heading">{label}</h3>
+        <div className={`accordion-icon ${activeStatus}`}>
+          <BiChevronDown />
         </div>
-        {label}
       </button>
-      <AnimatePresence initial={false}>
-        {visibility && (
-          <motion.div
-            key="active"
-            initial="collapsed"
-            animate="open"
-            exit="collapsed"
-            
-            variants={{
-              open: {
-                opacity: 1,
-                height: "auto",
-                y: 0,
-                transition: {
-                  y: { stiffness: 1000, velocity: -100 },
-                },
-              },
-              collapsed: {
-                opacity: 0,
-                height: 0,
-                y: 50,
-                transition: {
-                  y: { stiffness: 1000 },
-                },
-              },
-            }}
-            transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
-          >
-            <div className={`accordion-content ${activeStatus}`} id={`accordion__content_${itemID}`} role="region" aria-labelledby={`accordion__title_${itemID}`}>
-              {hiddenContent.map(content => (
-                <PriceListItem key={content.id} item={content} />
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        initial="collapsed"
+        animate={visibility ? "open" : "collapsed"}
+        style={{ overflow: "hidden" }}
+        variants={{
+          open: {
+            opacity: 1,
+            height: "auto",
+            display: "block",
+            transition: {
+              height: { duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] },
+              opacity: { duration: 0.3, delay: 0.1 },
+              staggerChildren: 0.05, /* Stagger delay for items */
+            },
+          },
+          collapsed: {
+            opacity: 0,
+            height: 0,
+            transitionEnd: { display: "none" },
+            transition: {
+              height: { duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98], delay: 0.1 },
+              opacity: { duration: 0.2 },
+              staggerChildren: 0.02,
+              staggerDirection: -1,
+            },
+          },
+        }}
+      >
+        <div className={`accordion-content ${activeStatus}`} id={`accordion__content_${itemID}`} role="list" aria-labelledby={`accordion__title_${itemID}`}>
+          {hiddenContent.map(content => (
+            <PriceListItem key={content.id} item={content} />
+          ))}
+        </div>
+      </motion.div>
     </AccordionItemStyled>
   )
 }

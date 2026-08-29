@@ -29,6 +29,12 @@ const ArticleCardContainer = styled.div`
   width: 100%;
   border-radius: 30px;
   box-shadow: 0 6px 10px rgb(0 0 0 / 8%);
+
+  > a {
+    display: flex;
+    width: 100%;
+    text-decoration: none;
+  }
 `;
 
 const CardContainer = styled.div`
@@ -46,11 +52,64 @@ const CardContainer = styled.div`
 const CardImageContainer = styled.div`
   position: relative;
   width: 100%;
-  transition: ${(props) => props.theme.imageAnim};
+  height: 240px;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ${(props) => props.theme.imageAnim || "transform 0.4s ease"};
   margin-bottom: -4px;
+
   &:hover {
     transform: scale(1.03);
   }
+
+  @media ${(props) => props.theme.media?.medium || "screen and (min-width: 767px)"} {
+    height: 260px;
+  }
+`;
+
+const CardImageBlurredBackground = styled.div`
+  position: absolute;
+  inset: -20px;
+  background-image: url(${(props) => props.$src});
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px) brightness(0.85) saturate(1.15);
+  opacity: 0.7;
+  transform: scale(1.15);
+  pointer-events: none;
+  z-index: 1;
+`;
+
+const CardMainImageWrapper = styled.div`
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${(props) =>
+    props.$isPortrait
+      ? `
+    padding: 10px;
+    .gatsby-image-wrapper {
+      height: 100% !important;
+      max-height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    }
+  `
+      : `
+    .gatsby-image-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+  `}
 `;
 
 const CardContentContainer = styled.div`
@@ -60,11 +119,8 @@ const CardContentContainer = styled.div`
   .card-content {
     position: relative;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch;
-    align-content: stretch;
+    flex-direction: column;
+    flex: 1 1 auto;
     padding: 24px;
 
     width: 100%;
@@ -80,6 +136,7 @@ const CardContentContainer = styled.div`
     .card-descr {
       color: ${(props) => props.theme.primaryColor.color500};
       font-weight: 500;
+      margin-bottom: 24px;
     }
   }
 `;
@@ -148,6 +205,8 @@ export {
   ArticleCardContainer,
   CardContainer,
   CardImageContainer,
+  CardImageBlurredBackground,
+  CardMainImageWrapper,
   CardContentContainer,
   CardAuthorContainer,
 };

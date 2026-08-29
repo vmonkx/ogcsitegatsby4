@@ -326,7 +326,13 @@ module.exports = {
       options: {
         host: process.env.SITE_URL,
         sitemap: `${process.env.SITE_URL}/sitemap-index.xml`,
-        policy: [{ userAgent: "*", allow: "/" }],
+        policy: [
+          { userAgent: "*", allow: "/" },
+          { userAgent: "GPTBot", allow: "/" },
+          { userAgent: "OAI-SearchBot", allow: "/" },
+          { userAgent: "ClaudeBot", allow: "/" },
+          { userAgent: "PerplexityBot", allow: "/" },
+        ],
       },
     },
     {
