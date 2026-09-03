@@ -7,6 +7,9 @@ import { SectionMain } from "../../components/Styled/Section";
 import Seo from "../../components/Seo";
 
 function promo({ data, location }) {
+  if (!data?.strapiPromo) {
+    return null;
+  }
   return (
     <Layout>
       <SectionMain>
@@ -79,6 +82,8 @@ export const query = graphql`
 `;
 
 export const Head = ({ location, params, data, pageContext }) => {
+  if (!data?.strapiPromo) return null;
+
   const breadCrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -87,7 +92,7 @@ export const Head = ({ location, params, data, pageContext }) => {
         "@type": "ListItem",
         position: 1,
         item: {
-          "@id": `${data.site.siteMetadata?.url}/promo`,
+          "@id": `${data.site?.siteMetadata?.url || ""}/promo`,
           name: "Все акции клиники",
         },
       },
@@ -95,14 +100,14 @@ export const Head = ({ location, params, data, pageContext }) => {
         "@type": "ListItem",
         position: 2,
         item: {
-          "@id": `${data.site.siteMetadata?.url}${location.pathname}`,
-          name: `${data.strapiPromo.name}`,
+          "@id": `${data.site?.siteMetadata?.url || ""}${location.pathname}`,
+          name: `${data.strapiPromo.name || ""}`,
         },
       },
     ],
   };
 
-  const meta = data.strapiPromo.seo.meta || [];
+  const meta = data.strapiPromo.seo?.meta || [];
 
   return (
     <Seo

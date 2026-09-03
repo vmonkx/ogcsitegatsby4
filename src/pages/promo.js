@@ -4,20 +4,25 @@ import Container from "../components/Container";
 import HeaderService from "../components/HeaderService";
 import Layout from "../components/Layout";
 import PromoList from "../components/PromoList";
+import PromoEmptyState from "../components/PromoEmptyState";
 
 import { SectionMain } from "../components/Styled/Section";
 import NavigationBack from "../components/NavigationBack";
 import Seo from "../components/Seo";
 
-function promo({ data: { allStrapiPromo } }) {
-  const promos = allStrapiPromo.edges;
+function promo({ data }) {
+  const promos = data?.allStrapiPromo?.edges || [];
   return (
     <Layout>
       <SectionMain>
         <Container>
           <NavigationBack to={`/`} title="Главной странице" />
           <HeaderService title="Акции" />
-          <PromoList promos={promos} />
+          {promos.length > 0 ? (
+            <PromoList promos={promos} />
+          ) : (
+            <PromoEmptyState />
+          )}
         </Container>
       </SectionMain>
     </Layout>

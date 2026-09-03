@@ -277,29 +277,38 @@ const PromoArticleContent = styled.div`
 function PromoSingle({ promo }) {
   const { toggle, setTextMessage } = useModalWindow();
 
+  if (!promo) return null;
+
   const handleOrderClick = () => {
-    setTextMessage(`Хочу воспользоваться акцией: ${promo.name}`);
+    setTextMessage(`Хочу воспользоваться акцией: ${promo.name || ""}`);
     toggle();
   };
+
+  const image = promo.image?.localFile ? getImage(promo.image.localFile) : null;
+  const articleHtml = promo.article?.data?.childMarkdownRemark?.html || "";
 
   return (
     <Container>
       <NavigationBack to={`/promo`} title="акциям" />
       <Hero>
         <div className="container">
-          <div className="wrapper-image">
-            <GatsbyImage
-              image={getImage(promo.image.localFile)}
-              alt={promo.name}
-            />
-          </div>
+          {image && (
+            <div className="wrapper-image">
+              <GatsbyImage
+                image={image}
+                alt={promo.name || "Акция OGC clinic"}
+              />
+            </div>
+          )}
           <div className="wrapper-content">
             <HeaderService title={promo.name} />
-            <PromoArticleContent>
-              <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                {promo.article.data.childMarkdownRemark.html}
-              </ReactMarkdown>
-            </PromoArticleContent>
+            {articleHtml && (
+              <PromoArticleContent>
+                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                  {articleHtml}
+                </ReactMarkdown>
+              </PromoArticleContent>
+            )}
             <div className="wrapper-action">
               <PromoActionButton onClick={handleOrderClick}>Записаться</PromoActionButton>
             </div>

@@ -37,18 +37,61 @@
   }
 } */
 
-/* exports.createSchemaCustomization = ({ actions, schema }) => {
+exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
 
-  // Type definitions can be provided in SDL
   const typeDefs = `
-    type CoverGradient {
-      gradientStart: String!
-      gradientEnd: String!
+    type StrapiPromo implements Node @infer {
+      name: String
+      slug: String
+      featured: Boolean
+      description: StrapiPromoDescription
+      article: StrapiPromoArticle
+      image: StrapiPromoImage
+      seo: StrapiPromoSeo
+    }
+
+    type StrapiPromoDescription {
+      data: StrapiPromoDescriptionData
+    }
+
+    type StrapiPromoDescriptionData {
+      data: String
+      childMarkdownRemark: MarkdownRemark
+    }
+
+    type StrapiPromoArticle {
+      data: StrapiPromoArticleData
+    }
+
+    type StrapiPromoArticleData {
+      data: String
+      childMarkdownRemark: MarkdownRemark
+    }
+
+    type StrapiPromoImage {
+      id: ID
+      mime: String
+      url: String
+      localFile: File @link(by: "id", from: "localFile___NODE")
+    }
+
+    type StrapiPromoSeo {
+      title: String
+      description: String
+      shareImage: StrapiPromoImage
+      meta: [StrapiPromoSeoMeta]
+    }
+
+    type StrapiPromoSeoMeta {
+      id: ID
+      name: String
+      content: String
     }
   `;
+
   createTypes(typeDefs);
-}; */
+};
 
 /* exports.createResolvers = ({ createResolvers }) => {
   createResolvers({

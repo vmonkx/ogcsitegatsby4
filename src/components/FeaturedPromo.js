@@ -12,8 +12,13 @@ import PromoSliderList from "./PromoSliderList";
 import { HeaderSectionStyled } from "./Styled/HeaderStyled";
 
 function FeaturedPromo() {
-  const { allStrapiPromo } = useStaticQuery(getFeaturedServices);
-  const promos = allStrapiPromo.edges;
+  const data = useStaticQuery(getFeaturedServices);
+  const promos = data?.allStrapiPromo?.edges || [];
+
+  if (!promos || promos.length === 0) {
+    return null;
+  }
+
   return (
     <Section>
       <Container>
