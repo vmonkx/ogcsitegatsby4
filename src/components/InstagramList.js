@@ -136,7 +136,7 @@ function InstagramList({ posts }) {
                       image={
                         post.node.localFile?.childImageSharp?.gatsbyImageData
                       }
-                      alt={`Пост в instagram - ${post.node.caption.slice(
+                      alt={`Пост в instagram - ${(post.node.caption || "OGC Clinic").slice(
                         0,
                         120
                       )}`}

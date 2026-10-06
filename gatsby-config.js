@@ -179,10 +179,13 @@ module.exports = {
       __key: "pages",
     },
     {
-      resolve: `gatsby-source-instagram-all`,
+      resolve: "gatsby-source-instagram-facebook",
       options: {
-        access_token: process.env.INSTAGRAM_TOKEN,
+        accessToken: process.env.INST_ACCESS_TOKEN,
+        accountId: process.env.INSTAGRAM_ACCOUNT_ID || process.env.INSTAGRAM_ID,
+        apiVersion: process.env.INSTAGRAM_API_VERSION || "v25.0",
         limit: 15,
+        timeoutMs: 10000,
       },
     },
     {

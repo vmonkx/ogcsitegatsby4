@@ -10,12 +10,14 @@ import { WrapperActionSection } from "./Styled/WrapperActionSection";
 
 function InstagramSection() {
   const data = useStaticQuery(query);
-  const { allInstagramContent } = data;
+  const posts = data.allInstagramContent.edges.filter(
+    ({ node }) => node.permalink && node.localFile?.childImageSharp?.gatsbyImageData
+  );
   return (
     <Section>
       <Container>
         <HeaderSectionStyled>OGC clinic в социальных сетях</HeaderSectionStyled>
-        <InstagramList posts={allInstagramContent.edges} />
+        {posts.length > 0 && <InstagramList posts={posts} />}
         <WrapperActionSection>
           <div className="button-container">
             <a
@@ -37,7 +39,7 @@ export default InstagramSection;
 
 const query = graphql`
   query {
-    allInstagramContent {
+    allInstagramContent(sort: { timestamp: DESC }) {
       edges {
         node {
           id
