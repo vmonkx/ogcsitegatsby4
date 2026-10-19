@@ -2,7 +2,7 @@
 
 This local Gatsby source replaces `gatsby-source-instagram-all`. It reads up to
 15 Instagram posts at build time from `graph.facebook.com`, creates
-`InstagramContent` nodes and downloads image covers through Gatsby's file cache.
+`OgcInstagramContent` nodes and downloads image covers through Gatsby's file cache.
 Video posts use `thumbnail_url`; carousel posts use the album cover.
 
 Set these variables in `.env.development`, `.env.production`, or the build host:
@@ -33,7 +33,9 @@ If a Page token is already available, query the known Page ID for
 revocation, expiration, or loss of permissions requires a new token.
 
 The token is sent only in the Authorization header to the fixed Meta API host.
-It is not copied into Gatsby content nodes, frontend data, or diagnostics.
+It is read privately during sourcing, outside Gatsby plugin options, so Gatsby
+error diagnostics cannot dump it with the plugin configuration. It is not copied
+into content nodes or frontend data.
 Pagination uses cursors rather than following token-bearing URLs.
 Remote covers must be HTTPS URLs from Instagram/Facebook CDN domains.
 
@@ -48,3 +50,15 @@ development server after changing environment variables.
 References:
 - [Meta's Instagram API collection](https://www.postman.com/meta/instagram/documentation/6yqw8pt/instagram-api?entity=request-23987686-894be833-d0b6-4877-859e-c61ae6474d64)
 - [Gatsby local plugins](https://www.gatsbyjs.com/docs/creating-a-local-plugin/)
+
+## Switching from the previous source on Vercel
+
+The source owns `OgcInstagramContent` and uses a distinct `ogc-instagram-media-`
+node ID prefix. This avoids ownership conflicts when a build cache still records
+`InstagramContent` as belonging to `gatsby-source-instagram-all` or an earlier
+version of this local source. The UI query aliases `allOgcInstagramContent` to
+`allInstagramContent`, preserving the component's data contract.
+
+Commit and deploy the plugin and query changes together. A cache reset is not
+required for this type migration. Set `INST_ACCESS_TOKEN` in Vercel's server-side
+build environment. Rotate a token if it has appeared in build logs.

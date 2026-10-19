@@ -39,7 +39,7 @@ export default InstagramSection;
 
 const query = graphql`
   query {
-    allInstagramContent(sort: { timestamp: DESC }) {
+    allInstagramContent: allOgcInstagramContent(sort: { timestamp: DESC }) {
       edges {
         node {
           id

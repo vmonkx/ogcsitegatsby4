@@ -14,7 +14,42 @@ const strapiConfig = {
     {
       singularName: `personal`,
       queryParams: {
-        populate: "*",
+        populate: {
+          avatar: {
+            populate: `*`,
+          },
+          cover: {
+            populate: `*`,
+          },
+          miniature: {
+            populate: `*`,
+          },
+          retraining: {
+            populate: `*`,
+          },
+          certificates: {
+            populate: `*`,
+          },
+          stateCertificate: {
+            populate: `*`,
+          },
+          courses: {
+            populate: `*`,
+          },
+          statistics: {
+            populate: `*`,
+          },
+          services: {
+            populate: {
+              category: {
+                populate: `*`,
+              },
+            },
+          },
+          seo: {
+            populate: `*`,
+          },
+        },
       },
     },
     {
@@ -181,7 +216,6 @@ module.exports = {
     {
       resolve: "gatsby-source-instagram-facebook",
       options: {
-        accessToken: process.env.INST_ACCESS_TOKEN,
         accountId: process.env.INSTAGRAM_ACCOUNT_ID || process.env.INSTAGRAM_ID,
         apiVersion: process.env.INSTAGRAM_API_VERSION || "v25.0",
         limit: 15,

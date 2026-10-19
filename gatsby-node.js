@@ -41,6 +41,24 @@ exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
 
   const typeDefs = `
+    type STRAPI_PERSONAL implements Node @infer {
+      services: [STRAPI_SERVICE] @link(by: "id", from: "services___NODE")
+      seo: STRAPI__COMPONENT_SERVICE_COMPONENTS_SEO @link(by: "id", from: "seo___NODE")
+    }
+
+    type STRAPI__COMPONENT_SERVICE_COMPONENTS_SEO implements Node @infer {
+      title: String
+      description: String
+      lang: String
+      meta: [STRAPI__COMPONENT_SERVICE_COMPONENTS_META] @link(by: "id", from: "meta___NODE")
+      shareImage: STRAPI__MEDIA @link(by: "id", from: "shareImage___NODE")
+    }
+
+    type STRAPI__COMPONENT_SERVICE_COMPONENTS_META implements Node @infer {
+      name: String
+      content: String
+    }
+
     type StrapiPromo implements Node @infer {
       name: String
       slug: String

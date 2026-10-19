@@ -13,7 +13,7 @@ async function sourceNodes(gatsby, options, dependencies) {
   }
   let created = 0;
   for (const { imageUrl, ...post } of media) {
-    const id = createNodeId(`instagram-media-${options.accountId}-${post.media_id}`);
+    const id = createNodeId(`ogc-instagram-media-${options.accountId}-${post.media_id}`);
     let file;
     try {
       file = await dependencies.createRemoteFileNode({
@@ -29,13 +29,13 @@ async function sourceNodes(gatsby, options, dependencies) {
     }
     if (!file) continue;
     const content = { ...post, localFile___NODE: file.id };
-    actions.createNode({
+    await actions.createNode({
       ...content,
       id,
       parent: null,
       children: [],
       internal: {
-        type: "InstagramContent",
+        type: "OgcInstagramContent",
         contentDigest: createContentDigest(content),
       },
     });

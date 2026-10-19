@@ -32,9 +32,11 @@ function SpecialistTemplatePage({ data, pageContext, location }) {
   const { toggle, setTextMessage } = useModalWindow();
 
   const { strapiPersonal } = data;
+  if (!strapiPersonal) return null;
 
-  const categoriesPersonalArray = strapiPersonal.services.reduce(
+  const categoriesPersonalArray = (strapiPersonal.services || []).reduce(
     (prev, service) => {
+      if (!service || !service.category) return prev;
       if (prev.some((category) => category.id === service.category.id)) {
         prev.forEach((category) => {
           if (category.id === service.category.id) {
@@ -126,7 +128,7 @@ function SpecialistTemplatePage({ data, pageContext, location }) {
                   </div>
                 ) : null}
 
-                {strapiPersonal.retraining.length ? (
+                {strapiPersonal.retraining?.length ? (
                   <div>
                     <h3>Диплом о профессиональной переподготовке</h3>
                     {strapiPersonal.retraining.map((retrain) => (
@@ -134,7 +136,7 @@ function SpecialistTemplatePage({ data, pageContext, location }) {
                     ))}
                   </div>
                 ) : null}
-                {strapiPersonal.certificates.length ? (
+                {strapiPersonal.certificates?.length ? (
                   <div>
                     <h3>Сертификаты</h3>
                     {strapiPersonal.certificates.map((certificate) => (
@@ -142,7 +144,7 @@ function SpecialistTemplatePage({ data, pageContext, location }) {
                     ))}
                   </div>
                 ) : null}
-                {strapiPersonal.stateCertificate.length ? (
+                {strapiPersonal.stateCertificate?.length ? (
                   <div>
                     <h3>Удостоверение государственного образца</h3>
                     {strapiPersonal.stateCertificate.map((certificate) => (
@@ -150,7 +152,7 @@ function SpecialistTemplatePage({ data, pageContext, location }) {
                     ))}
                   </div>
                 ) : null}
-                {strapiPersonal.courses.length ? (
+                {strapiPersonal.courses?.length ? (
                   <div>
                     <h3>Курсы, семинары</h3>
                     {strapiPersonal.courses.map((course) => (
@@ -159,27 +161,29 @@ function SpecialistTemplatePage({ data, pageContext, location }) {
                   </div>
                 ) : null}
               </SpecialistGridContent>
-              <SpecialistGridContent>
-                <HeaderCategory>Процедуры и услуги</HeaderCategory>
-                {categoriesPersonalArray.map((category) => {
-                  return (
-                    <div key={category.id}>
-                      <h3>
-                        <PrimaryLinkStyled to={`/category/${category.slug}`}>
-                          {category.name}
-                        </PrimaryLinkStyled>
-                      </h3>
-                      <SpecialistServiceArrayStyled>
-                        {category.service.map((serv) => (
-                          <LinkStyl to={`/services/${serv.slug}`} key={serv.id}>
-                            {serv.name}
-                          </LinkStyl>
-                        ))}
-                      </SpecialistServiceArrayStyled>
-                    </div>
-                  );
-                })}
-              </SpecialistGridContent>
+              {categoriesPersonalArray.length > 0 && (
+                <SpecialistGridContent>
+                  <HeaderCategory>Процедуры и услуги</HeaderCategory>
+                  {categoriesPersonalArray.map((category) => {
+                    return (
+                      <div key={category.id}>
+                        <h3>
+                          <PrimaryLinkStyled to={`/category/${category.slug}`}>
+                            {category.name}
+                          </PrimaryLinkStyled>
+                        </h3>
+                        <SpecialistServiceArrayStyled>
+                          {category.service.map((serv) => (
+                            <LinkStyl to={`/services/${serv.slug}`} key={serv.id}>
+                              {serv.name}
+                            </LinkStyl>
+                          ))}
+                        </SpecialistServiceArrayStyled>
+                      </div>
+                    );
+                  })}
+                </SpecialistGridContent>
+              )}
             </GridContainerStyled>
           </SpecialistParticularInfoWrap>
         </Container>
@@ -236,7 +240,6 @@ export const query = graphql`
         id
         name
         slug
-        slug
         category {
           id
           name
@@ -271,7 +274,8 @@ export const query = graphql`
 `;
 
 export const Head = ({ location, params, data, pageContext }) => {
-  const { strapiPersonal } = data;
+  const { strapiPersonal } = data || {};
+  if (!strapiPersonal) return null;
   const siteUrl = "https://ogcclinic.ru";
 
   const breadCrumbSchema = {
