@@ -12,6 +12,7 @@ import Seo from "../components/Seo";
 
 function promo({ data }) {
   const promos = data?.allStrapiPromo?.edges || [];
+  const featuredServices = data?.allStrapiService?.edges?.map((e) => e.node) || [];
   return (
     <Layout>
       <SectionMain>
@@ -21,7 +22,7 @@ function promo({ data }) {
           {promos.length > 0 ? (
             <PromoList promos={promos} />
           ) : (
-            <PromoEmptyState />
+            <PromoEmptyState services={featuredServices} />
           )}
         </Container>
       </SectionMain>
@@ -60,6 +61,38 @@ export const query = graphql`
                 )
               }
             }
+          }
+        }
+      }
+    }
+    allStrapiService(
+      filter: { featured: { eq: true } }
+      sort: { updatedAt: DESC }
+    ) {
+      edges {
+        node {
+          id
+          slug
+          name
+          cover {
+            id
+            mime
+            url
+            localFile {
+              childImageSharp {
+                gatsbyImageData(
+                  layout: CONSTRAINED
+                  placeholder: BLURRED
+                  width: 300
+                  height: 200
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
+          }
+          coverColor {
+            gradientStart
+            gradientEnd
           }
         }
       }

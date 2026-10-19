@@ -1,60 +1,99 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { Link } from "gatsby";
+import { Link, useStaticQuery, graphql } from "gatsby";
+import { getImage } from "gatsby-plugin-image";
 import { useModalWindow } from "../contexts/ModalProvider";
-
-import BackgroundRadial from "./BackgroundRadial";
+import CategoryItem from "./CategoryItem";
+import CategoryList from "./CategoryList";
 
 const fadeIn = keyframes`
   from {
     opacity: 0;
-    transform: translateY(10px) scale(0.99);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 `;
 
-const EmptyStateContainer = styled.div`
-  position: relative;
-  max-width: 720px;
+const SectionWrap = styled.div`
+  width: 100%;
   margin: 0 auto 5rem auto;
-  padding: 1.5rem 0 3rem 0;
-  text-align: center;
-  animation: ${fadeIn} 260ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation: ${fadeIn} 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
     opacity: 1;
     transform: none;
   }
+`;
 
-  .content-wrap {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+const HeroCard = styled.div`
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(108, 105, 124, 0.14);
+  border-radius: 24px;
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
+  box-shadow: 0 4px 20px -4px rgba(36, 35, 45, 0.04);
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 2.75rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f9516e 0%, #cd026b 50%, #784ba0 100%);
+  }
+
+  @media (max-width: 640px) {
+    padding: 2.25rem 1.25rem 2rem 1.25rem;
+    border-radius: 18px;
   }
 `;
 
-const EmptyTitle = styled.h2`
-  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+const EditorialEyebrow = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #cd026b;
+  margin-bottom: 1rem;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #cd026b;
+  }
+`;
+
+const Title = styled.h2`
+  font-size: clamp(1.6rem, 2.8vw, 2.25rem);
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.025em;
+  color: #1f1e26;
+  max-width: 680px;
+  margin: 0 auto 1.1rem auto;
   text-wrap: balance;
-  ${(props) => props.theme.secondaryTextGradient};
-  margin: 0 0 0.85rem 0;
 `;
 
-const EmptyDescription = styled.p`
-  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
-  line-height: 1.62;
+const Description = styled.p`
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  line-height: 1.65;
   color: #555263;
-  max-width: 530px;
-  margin: 0 auto 2rem auto;
+  max-width: 580px;
+  margin: 0 auto 2.25rem auto;
   text-wrap: pretty;
 `;
 
@@ -65,7 +104,6 @@ const ActionGroup = styled.div`
   justify-content: center;
   gap: 0.85rem;
   width: 100%;
-  margin-bottom: 2.5rem;
 `;
 
 const PrimaryAction = styled.button`
@@ -81,12 +119,12 @@ const PrimaryAction = styled.button`
   letter-spacing: -0.01em;
   color: #ffffff;
   background-image: linear-gradient(135deg, #f9516e 0%, #cd026b 100%);
-  box-shadow: 0 8px 22px -4px rgba(205, 2, 107, 0.38);
+  box-shadow: 0 6px 18px -3px rgba(205, 2, 107, 0.35);
   cursor: pointer;
-  transition: 
-    transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+  transition:
+    transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 160ms ease,
-    background-image 200ms ease;
+    background-image 160ms ease;
 
   &:focus-visible {
     outline: 2px solid #cd026b;
@@ -96,14 +134,13 @@ const PrimaryAction = styled.button`
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 26px -2px rgba(205, 2, 107, 0.48);
+      box-shadow: 0 10px 24px -2px rgba(205, 2, 107, 0.45);
       background-image: linear-gradient(135deg, #fa617c 0%, #e30277 100%);
     }
   }
 
   &:active {
-    transform: scale(0.97);
-    box-shadow: 0 4px 12px rgba(205, 2, 107, 0.3);
+    transform: scale(0.98);
   }
 `;
 
@@ -118,14 +155,13 @@ const SecondaryAction = styled(Link)`
   letter-spacing: -0.01em;
   color: #3c3a46;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.85);
+  background: #ffffff;
   border: 1px solid rgba(108, 105, 124, 0.22);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-  transition: 
-    transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+  transition:
+    transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
     border-color 160ms ease,
     color 160ms ease,
-    background-color 160ms ease;
+    box-shadow 160ms ease;
 
   &:focus-visible {
     outline: 2px solid #cd026b;
@@ -135,303 +171,248 @@ const SecondaryAction = styled(Link)`
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       transform: translateY(-2px);
-      background: #ffffff;
-      border-color: rgba(205, 2, 107, 0.4);
+      border-color: rgba(205, 2, 107, 0.45);
       color: #cd026b;
       box-shadow: 0 6px 16px -2px rgba(108, 105, 124, 0.08);
     }
   }
 
   &:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
   }
 `;
 
-const DirectionsSection = styled.div`
-  width: 100%;
-  max-width: 680px;
-  margin-top: 2.25rem;
+const GridHeader = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 0.65rem;
-  position: relative;
+  gap: 0.35rem;
+  margin-bottom: 1.5rem;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: -1.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(100%, 420px);
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(108, 105, 124, 0.16) 25%,
-      rgba(108, 105, 124, 0.16) 75%,
-      transparent 100%
-    );
+  .grid-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f1e26;
+    letter-spacing: -0.02em;
+    margin: 0;
   }
 
-  .section-label {
-    font-size: 0.76rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #8c899a;
-    text-align: center;
-    margin-bottom: 0.5rem;
+  .grid-subtitle {
+    font-size: 0.92rem;
+    color: #6c697c;
+    margin: 0;
   }
 `;
 
-const DirectionRow = styled(Link)`
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+const ConsultationCard = styled.div`
+  display: flex;
   align-items: center;
-  gap: 1.15rem;
-  padding: 1rem 1.25rem;
+  justify-content: space-between;
+  gap: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #fff7fb 100%);
+  border: 1px solid rgba(205, 2, 107, 0.22);
   border-radius: 20px;
-  text-decoration: none;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(108, 105, 124, 0.1);
-  box-shadow: 0 2px 10px -2px rgba(108, 105, 124, 0.04);
-  text-align: left;
-  position: relative;
-  overflow: hidden;
-  transition:
-    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 180ms ease,
-    background-color 180ms ease,
-    box-shadow 180ms ease;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 4px 18px -4px rgba(205, 2, 107, 0.08);
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, #f9516e 0%, #cd026b 100%);
-    opacity: 0;
-    transform: scaleY(0.4);
-    transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  &:focus-visible {
-    outline: 2px solid #cd026b;
-    outline-offset: 2px;
-  }
-
-  .row-index {
-    font-size: 1.25rem;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    color: #8c899a;
-    letter-spacing: -0.03em;
-    min-width: 1.85rem;
-    transition: all 180ms ease;
-  }
-
-  .row-body {
+  .text-block {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.4rem;
+    max-width: 580px;
   }
 
-  .row-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #24232d;
-    line-height: 1.3;
-    transition: color 160ms ease;
+  .consult-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f1e26;
+    letter-spacing: -0.015em;
+    margin: 0;
   }
 
-  .row-tags {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.35rem 0.45rem;
-  }
-
-  .row-tag {
-    font-size: 0.78rem;
+  .consult-desc {
+    font-size: 0.94rem;
+    line-height: 1.55;
     color: #555263;
-    background: rgba(108, 105, 124, 0.06);
-    padding: 0.15rem 0.5rem;
-    border-radius: 8px;
-    line-height: 1.3;
-    transition: all 160ms ease;
+    margin: 0;
   }
 
-  .row-action {
-    display: flex;
+  .consult-btn {
+    appearance: none;
+    border: none;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: rgba(108, 105, 124, 0.05);
-    border: 1px solid rgba(108, 105, 124, 0.08);
-    color: #8c899a;
+    white-space: nowrap;
+    padding: 13px 26px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    background-image: linear-gradient(
+      -200deg,
+      rgba(205, 2, 107, 1) 0%,
+      rgba(249, 81, 110, 1) 100%
+    );
+    box-shadow: 0 6px 18px -3px rgba(205, 2, 107, 0.35);
+    cursor: pointer;
     flex-shrink: 0;
-    transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition:
+      transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-image 160ms ease,
+      box-shadow 160ms ease;
 
-    svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transform: translateX(0);
-      transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    &:focus-visible {
+      outline: 2px solid #cd026b;
+      outline-offset: 2px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-2px);
+        background-image: linear-gradient(
+          -200deg,
+          rgba(156, 0, 81, 1) 0%,
+          rgba(224, 69, 95, 1) 100%
+        );
+        box-shadow: 0 10px 24px -2px rgba(205, 2, 107, 0.45);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
     }
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      transform: translateY(-2px);
-      background: #ffffff;
-      border-color: rgba(205, 2, 107, 0.3);
-      box-shadow: 0 10px 24px -4px rgba(205, 2, 107, 0.12);
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    gap: 1.25rem;
 
-      &::before {
-        opacity: 1;
-        transform: scaleY(1);
-      }
+    .consult-btn {
+      width: 100%;
+    }
+  }
+`;
 
-      .row-index {
-        color: #cd026b;
-      }
+function PromoEmptyState({ services }) {
+  const { toggle, setTextMessage } = useModalWindow();
 
-      .row-title {
-        color: #cd026b;
-      }
-
-      .row-tag {
-        background: rgba(205, 2, 107, 0.08);
-        color: #cd026b;
-      }
-
-      .row-action {
-        background: linear-gradient(135deg, #f9516e 0%, #cd026b 100%);
-        border-color: transparent;
-        color: #ffffff;
-        box-shadow: 0 4px 10px rgba(205, 2, 107, 0.3);
-
-        svg {
-          transform: translateX(2px);
+  const staticData = useStaticQuery(graphql`
+    query PromoEmptyStateFallbackServices {
+      allStrapiService(
+        filter: { featured: { eq: true } }
+        sort: { updatedAt: DESC }
+      ) {
+        edges {
+          node {
+            id
+            name
+            slug
+            cover {
+              id
+              mime
+              url
+              localFile {
+                childImageSharp {
+                  gatsbyImageData(
+                    layout: CONSTRAINED
+                    placeholder: BLURRED
+                    width: 300
+                    height: 200
+                    formats: [AUTO, WEBP, AVIF]
+                  )
+                }
+              }
+            }
+            coverColor {
+              gradientStart
+              gradientEnd
+            }
+          }
         }
       }
     }
-  }
+  `);
 
-  &:active {
-    transform: scale(0.99);
-  }
+  const serviceList =
+    services && services.length > 0
+      ? services
+      : staticData?.allStrapiService?.edges?.map((e) => e.node) || [];
 
-  @media (max-width: 540px) {
-    gap: 0.85rem;
-    padding: 0.95rem 1rem;
-
-    .row-index {
-      font-size: 1.05rem;
-      min-width: 1.5rem;
-    }
-
-    .row-title {
-      font-size: 0.95rem;
-    }
-
-    .row-tag {
-      font-size: 0.74rem;
-    }
-
-    .row-action {
-      width: 30px;
-      height: 30px;
-    }
-  }
-`;
-
-const DIRECTIONS = [
-  {
-    index: "01",
-    title: "Аппаратная косметология",
-    slug: "/category/apparatnaya-kosmetologiya",
-    tags: ["SMAS-лифтинг", "Лазер", "RF-терапия"],
-  },
-  {
-    index: "02",
-    title: "Инъекционная косметология",
-    slug: "/category/inekcionnaya-kosmetologiya",
-    tags: ["Контурная пластика", "Ботокс", "Биоревитализация"],
-  },
-  {
-    index: "03",
-    title: "Эстетический уход",
-    slug: "/category/esteticheskaya-kosmetologiya",
-    tags: ["Чистки", "Пилинги", "Программы ухода"],
-  },
-];
-
-function PromoEmptyState() {
-  const { toggle, setTextMessage } = useModalWindow();
-
-  const handleConsultation = () => {
-    setTextMessage("Консультация по спецпредложениям и процедурам клиники");
+  const handleConsultation = (customNote) => {
+    setTextMessage(customNote || "Консультация по процедурам и программам OGC clinic");
     toggle();
   };
 
   return (
-    <EmptyStateContainer>
-      <BackgroundRadial $position="right" />
-      <div className="content-wrap">
-        <EmptyTitle>Сейчас действующих акций нет</EmptyTitle>
-
-        <EmptyDescription>
-          Новые спецпредложения скоро появятся здесь. Выберите направление или запишитесь на консультацию — врач ответит на вопросы и рассчитает стоимость.
-        </EmptyDescription>
+    <SectionWrap>
+      <HeroCard>
+        <EditorialEyebrow>Спецпредложения</EditorialEyebrow>
+        <Title>Сейчас открытых акций нет</Title>
+        <Description>
+          Новые спецпредложения появятся к началу сезона. Все процедуры доступны по
+          стандартному прайсу. Если вы не знаете, с чего начать — запишитесь на консультацию:
+          врач оценит состояние кожи и подберёт подходящий курс.
+        </Description>
 
         <ActionGroup>
-          <PrimaryAction onClick={handleConsultation}>
+          <PrimaryAction onClick={() => handleConsultation("Запись на консультацию из раздела Акции")}>
             Записаться на консультацию
           </PrimaryAction>
           <SecondaryAction to="/services">
-            Все услуги и прайс
+            Каталог услуг и прайс
           </SecondaryAction>
         </ActionGroup>
+      </HeroCard>
 
-        <DirectionsSection>
-          <span className="section-label">Популярные направления</span>
-          {DIRECTIONS.map((dir) => (
-            <DirectionRow key={dir.slug} to={dir.slug}>
-              <span className="row-index">{dir.index}</span>
-              <div className="row-body">
-                <span className="row-title">{dir.title}</span>
-                <div className="row-tags">
-                  {dir.tags.map((tag) => (
-                    <span key={tag} className="row-tag">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="row-action" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </div>
-            </DirectionRow>
-          ))}
-        </DirectionsSection>
-      </div>
-    </EmptyStateContainer>
+      {serviceList.length > 0 && (
+        <>
+          <GridHeader>
+            <h3 className="grid-title">Популярные процедуры OGCclinic</h3>
+            <p className="grid-subtitle">
+              Проверенные методики и протоколы с подтверждённой эффективностью
+            </p>
+          </GridHeader>
+
+          <CategoryList>
+            {serviceList.map((service) => {
+              const coverImg =
+                service.cover?.localFile?.childImageSharp?.gatsbyImageData ||
+                getImage(service.cover?.localFile);
+
+              return (
+                <CategoryItem
+                  key={service.id}
+                  name={service.name}
+                  cover={coverImg}
+                  coverColor={service.coverColor}
+                  slug={`/services/${service.slug}`}
+                />
+              );
+            })}
+          </CategoryList>
+        </>
+      )}
+
+      <ConsultationCard>
+        <div className="text-block">
+          <span className="consult-title">Поможем подобрать процедуру</span>
+          <p className="consult-desc">
+            На приёме врач проведёт диагностику кожи, ответит на вопросы и составит
+            персональный план ухода под вашу задачу.
+          </p>
+        </div>
+        <button
+          type="button"
+          className="consult-btn"
+          onClick={() => handleConsultation("Консультация: подбор процедур с врачом")}
+        >
+          Записаться на приём
+        </button>
+      </ConsultationCard>
+    </SectionWrap>
   );
 }
 
